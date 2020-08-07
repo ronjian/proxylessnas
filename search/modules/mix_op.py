@@ -194,7 +194,7 @@ class MixedEdge(MyModule):
             # set binary gate
             self.AP_path_wb.data[active_op] = 1.0
         else:
-            sample = torch.multinomial(probs.data, 1)[0].item()
+            sample = torch.multinomial(probs.data, 1)[0].item() # sample by prob
             self.active_index = [sample]
             self.inactive_index = [_i for _i in range(0, sample)] + \
                                   [_i for _i in range(sample + 1, self.n_choices)]

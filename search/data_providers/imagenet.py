@@ -8,15 +8,13 @@ import torchvision.datasets as datasets
 
 from data_providers.base_provider import *
 
-
 class ImagenetDataProvider(DataProvider):
-
     def __init__(self, save_path=None, train_batch_size=256, test_batch_size=512, valid_size=None,
-                 n_worker=32, resize_scale=0.08, distort_color=None):
+                 n_worker=32, resize_scale=0.08, distort_color=None, slice_idx=None):
 
         self._save_path = save_path
         train_transforms = self.build_train_transform(distort_color, resize_scale)
-        train_dataset = datasets.ImageFolder(self.train_path, train_transforms)
+        train_dataset = datasets.ImageFolder(self.train_path, train_transforms, slice_idx=slice_idx)
 
         if valid_size is not None:
             if isinstance(valid_size, float):
@@ -34,8 +32,7 @@ class ImagenetDataProvider(DataProvider):
                 transforms.CenterCrop(self.image_size),
                 transforms.ToTensor(),
                 self.normalize,
-            ]))
-
+            ]), slice_idx=slice_idx)
             self.train = torch.utils.data.DataLoader(
                 train_dataset, batch_size=train_batch_size, sampler=train_sampler,
                 num_workers=n_worker, pin_memory=True,
@@ -51,13 +48,15 @@ class ImagenetDataProvider(DataProvider):
             )
             self.valid = None
 
+
+        test_dataset = datasets.ImageFolder(self.valid_path, transforms.Compose([
+                        transforms.Resize(self.resize_value),
+                        transforms.CenterCrop(self.image_size),
+                        transforms.ToTensor(),
+                        self.normalize,
+                    ]), slice_idx=slice_idx)
         self.test = torch.utils.data.DataLoader(
-            datasets.ImageFolder(self.valid_path, transforms.Compose([
-                transforms.Resize(self.resize_value),
-                transforms.CenterCrop(self.image_size),
-                transforms.ToTensor(),
-                self.normalize,
-            ])), batch_size=test_batch_size, shuffle=False, num_workers=n_worker, pin_memory=True,
+            test_dataset, batch_size=test_batch_size, shuffle=False, num_workers=n_worker, pin_memory=True,
         )
 
         if self.valid is None:
@@ -78,7 +77,7 @@ class ImagenetDataProvider(DataProvider):
     @property
     def save_path(self):
         if self._save_path is None:
-            self._save_path = '/dataset/imagenet'
+            self._save_path = '/workspace/proxylessnas/dataset/imagenet'
         return self._save_path
 
     @property

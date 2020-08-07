@@ -11,7 +11,6 @@ from utils import LatencyEstimator
 
 
 class SuperProxylessNASNets(ProxylessNASNets):
-
     def __init__(self, width_stages, n_cell_stages, conv_candidates, stride_stages,
                  n_classes=1000, width_mult=1, bn_param=(0.1, 1e-3), dropout_rate=0):
         self._redundant_modules = None

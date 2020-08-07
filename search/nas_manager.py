@@ -553,7 +553,7 @@ class ArchSearchRunManager:
         time2 = time.time()  # time
         # compute output
         self.net.reset_binary_gates()  # random sample binary gates
-        self.net.unused_modules_off()  # remove unused module for speedup
+        self.net.unused_modules_off()  # remove unused module for speedup, no use under fullv2
         output = self.run_manager.net(images)
         time3 = time.time()  # time
         # loss
@@ -578,7 +578,7 @@ class ArchSearchRunManager:
         if MixedEdge.MODE == 'two':
             self.net.rescale_updated_arch_param()
         # back to normal mode
-        self.net.unused_modules_back()
+        self.net.unused_modules_back() # no use under fullv2
         MixedEdge.MODE = None
         time4 = time.time()  # time
         self.write_log(

@@ -33,6 +33,8 @@ class LatencyEstimator(object):
         with open(fname, 'r') as fp:
             self.lut = yaml.load(fp)
 
+        return
+
     @staticmethod
     def repr_shape(shape):
         if isinstance(shape, (list, tuple)):

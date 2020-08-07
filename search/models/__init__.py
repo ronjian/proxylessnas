@@ -30,6 +30,7 @@ class ImagenetRunConfig(RunConfig):
         self.n_worker = n_worker
         self.resize_scale = resize_scale
         self.distort_color = distort_color
+        self.slice_idx = None
 
         print(kwargs.keys())
 
@@ -42,5 +43,6 @@ class ImagenetRunConfig(RunConfig):
             'n_worker': self.n_worker,
             'resize_scale': self.resize_scale,
             'distort_color': self.distort_color,
+            'slice_idx': self.slice_idx
         }
 

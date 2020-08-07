@@ -1,0 +1,30 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "latency_estimator",
+            "type": "python",
+            "request": "launch",
+            "program": "latency_estimator.py",
+            "cwd":"/workspace/proxylessnas/search/utils/",
+            "args": [],
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "justMyCode": false,
+        },
+        {
+            "name": "imagenet_arch_search",
+            "type": "python",
+            "request": "launch",
+            "program": "imagenet_arch_search.py",
+            "cwd":"/workspace/proxylessnas/search/",
+            "args": [],
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "justMyCode": false,
+        },
+    ]
+}
