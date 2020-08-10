@@ -76,8 +76,8 @@ class ImagenetDataProvider(DataProvider):
 
     @property
     def save_path(self):
-        if self._save_path is None:
-            self._save_path = '/workspace/proxylessnas/dataset/imagenet'
+        # if self._save_path is None:
+        #     self._save_path = '../dataset/imagenet'
         return self._save_path
 
     @property

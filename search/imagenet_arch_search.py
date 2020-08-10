@@ -27,7 +27,7 @@ ref_values = {
 }
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--path', type=str, default='Exp/proxyless_jiangrong1')
+parser.add_argument('--path', type=str, default='Exp/proxyless_jiangrong3')
 parser.add_argument('--gpu', help='gpu available', default='0,1')
 parser.add_argument('--resume', action='store_true')
 # parser.add_argument('--debug', help='freeze the weight parameters', action='store_true')
@@ -44,8 +44,8 @@ parser.add_argument('--lr_schedule_type', type=str, default='cosine')
 parser.add_argument('--dataset', type=str, default='imagenet', choices=['imagenet'])
 # parser.add_argument('--train_batch_size', type=int, default=256)
 # parser.add_argument('--test_batch_size', type=int, default=1000)
-parser.add_argument('--train_batch_size', type=int, default=128)
-parser.add_argument('--test_batch_size', type=int, default=128)
+parser.add_argument('--train_batch_size', type=int, default=80)
+parser.add_argument('--test_batch_size', type=int, default=80)
 parser.add_argument('--valid_size', type=int, default=50000)
 
 parser.add_argument('--opt_type', type=str, default='sgd', choices=['sgd'])
@@ -62,9 +62,9 @@ parser.add_argument('--init_div_groups', action='store_true')
 parser.add_argument('--validation_frequency', type=int, default=2)
 parser.add_argument('--print_frequency', type=int, default=10)
 
-parser.add_argument('--n_worker', type=int, default=8)
+parser.add_argument('--n_worker', type=int, default=16)
 parser.add_argument('--resize_scale', type=float, default=0.08)
-parser.add_argument('--distort_color', type=str, default='normal', choices=['normal', 'strong', 'None'])
+parser.add_argument('--distort_color', type=str, default=None, choices=['normal', 'strong', None])
 
 """ net config """
 parser.add_argument('--width_stages', type=str, default='24,40,80,96,192,320')
@@ -78,7 +78,9 @@ parser.add_argument('--dropout', type=float, default=0)
 # architecture search config
 """ arch search algo and warmup """
 parser.add_argument('--arch_algo', type=str, default='grad', choices=['grad', 'rl'])
-parser.add_argument('--warmup_epochs', type=int, default=40)
+# parser.add_argument('--warmup_epochs', type=int, default=40)
+parser.add_argument('--warmup_epochs', type=int, default=8)
+parser.add_argument('--save_path', type=str, default='/dataset/ILSVRC2012')
 """ shared hyper-parameters """
 parser.add_argument('--arch_init_type', type=str, default='normal', choices=['normal', 'uniform'])
 parser.add_argument('--arch_init_ratio', type=float, default=1e-3)
@@ -131,7 +133,7 @@ if __name__ == '__main__':
     run_config = ImagenetRunConfig(
         **args.__dict__
     )
-
+    print('run_config.save_path', run_config.save_path)
     # debug, adjust run_config
     if args.debug:
         run_config.train_batch_size = 128
