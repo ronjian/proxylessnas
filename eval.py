@@ -102,7 +102,7 @@ if args.dataset == 'imagenet':
         batch_size=args.batch_size,
         shuffle=True,
         num_workers=args.workers,
-        pin_memory=True,
+        pin_memory=False,
         drop_last=False,
     )
 else:
@@ -118,7 +118,7 @@ else:
         batch_size=args.batch_size,
         shuffle=True,
         num_workers=args.workers,
-        pin_memory=True,
+        pin_memory=False,
         drop_last=False
     )
 

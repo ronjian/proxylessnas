@@ -192,7 +192,6 @@ class ArchSearchRunManager:
             checkpoint = torch.load(model_fname)
         else:
             checkpoint = torch.load(model_fname, map_location='cpu')
-
         model_dict = self.net.state_dict()
         model_dict.update(checkpoint['state_dict'])
         self.net.load_state_dict(model_dict)
@@ -247,7 +246,7 @@ class ArchSearchRunManager:
         data_loader = self.run_manager.run_config.train_loader
         nBatch = len(data_loader)
         T_total = warmup_epochs * nBatch
-
+        print(self.warmup_epoch, warmup_epochs)
         for epoch in range(self.warmup_epoch, warmup_epochs):
             print('\n', '-' * 30, 'Warmup epoch: %d' % (epoch + 1), '-' * 30, '\n')
             batch_time = AverageMeter()

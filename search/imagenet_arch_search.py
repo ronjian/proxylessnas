@@ -27,7 +27,7 @@ ref_values = {
 }
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--path', type=str, default='Exp/proxyless_jiangrong3')
+parser.add_argument('--path', type=str, default='Exp/proxyless_jiangrong5')
 parser.add_argument('--gpu', help='gpu available', default='0,1')
 parser.add_argument('--resume', action='store_true')
 # parser.add_argument('--debug', help='freeze the weight parameters', action='store_true')
@@ -78,8 +78,7 @@ parser.add_argument('--dropout', type=float, default=0)
 # architecture search config
 """ arch search algo and warmup """
 parser.add_argument('--arch_algo', type=str, default='grad', choices=['grad', 'rl'])
-# parser.add_argument('--warmup_epochs', type=int, default=40)
-parser.add_argument('--warmup_epochs', type=int, default=8)
+parser.add_argument('--warmup_epochs', type=int, default=40)
 parser.add_argument('--save_path', type=str, default='/dataset/ILSVRC2012')
 """ shared hyper-parameters """
 parser.add_argument('--arch_init_type', type=str, default='normal', choices=['normal', 'uniform'])

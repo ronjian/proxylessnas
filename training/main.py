@@ -122,7 +122,7 @@ verbose = 1 if hvd.rank() == 0 else 0
 log_writer = tensorboardX.SummaryWriter(args.log_dir) if hvd.rank() == 0 else None
 best_val_acc = 0.0
 
-kwargs = {'num_workers': 5, 'pin_memory': True} if args.cuda else {}
+kwargs = {'num_workers': 5, 'pin_memory': False} if args.cuda else {}
 # Training transform
 normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
 pre_process = [

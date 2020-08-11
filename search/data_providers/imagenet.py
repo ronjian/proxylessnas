@@ -35,16 +35,16 @@ class ImagenetDataProvider(DataProvider):
             ]), slice_idx=slice_idx)
             self.train = torch.utils.data.DataLoader(
                 train_dataset, batch_size=train_batch_size, sampler=train_sampler,
-                num_workers=n_worker, pin_memory=True,
+                num_workers=n_worker, pin_memory=False,
             )
             self.valid = torch.utils.data.DataLoader(
                 valid_dataset, batch_size=test_batch_size, sampler=valid_sampler,
-                num_workers=n_worker, pin_memory=True,
+                num_workers=n_worker, pin_memory=False,
             )
         else:
             self.train = torch.utils.data.DataLoader(
                 train_dataset, batch_size=train_batch_size, shuffle=True,
-                num_workers=n_worker, pin_memory=True,
+                num_workers=n_worker, pin_memory=False,
             )
             self.valid = None
 
@@ -56,7 +56,7 @@ class ImagenetDataProvider(DataProvider):
                         self.normalize,
                     ]), slice_idx=slice_idx)
         self.test = torch.utils.data.DataLoader(
-            test_dataset, batch_size=test_batch_size, shuffle=False, num_workers=n_worker, pin_memory=True,
+            test_dataset, batch_size=test_batch_size, shuffle=False, num_workers=n_worker, pin_memory=False,
         )
 
         if self.valid is None:
