@@ -27,7 +27,7 @@ ref_values = {
 }
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--path', type=str, default='Exp/proxyless_jiangrong5')
+parser.add_argument('--path', type=str, default='Exp/proxyless_jiangrong14')
 parser.add_argument('--gpu', help='gpu available', default='0,1')
 parser.add_argument('--resume', action='store_true')
 # parser.add_argument('--debug', help='freeze the weight parameters', action='store_true')
@@ -44,8 +44,8 @@ parser.add_argument('--lr_schedule_type', type=str, default='cosine')
 parser.add_argument('--dataset', type=str, default='imagenet', choices=['imagenet'])
 # parser.add_argument('--train_batch_size', type=int, default=256)
 # parser.add_argument('--test_batch_size', type=int, default=1000)
-parser.add_argument('--train_batch_size', type=int, default=80)
-parser.add_argument('--test_batch_size', type=int, default=80)
+parser.add_argument('--train_batch_size', type=int, default=64)
+parser.add_argument('--test_batch_size', type=int, default=64)
 parser.add_argument('--valid_size', type=int, default=50000)
 
 parser.add_argument('--opt_type', type=str, default='sgd', choices=['sgd'])
@@ -59,10 +59,10 @@ parser.add_argument('--no_decay_keys', type=str, default='bn#bias', choices=[Non
 # parser.add_argument('--model_init', type=str, default='he_fout', choices=['he_fin', 'he_fout'])
 parser.add_argument('--model_init', type=str, default='he_fin', choices=['he_fin', 'he_fout'])
 parser.add_argument('--init_div_groups', action='store_true')
-parser.add_argument('--validation_frequency', type=int, default=2)
-parser.add_argument('--print_frequency', type=int, default=10)
+parser.add_argument('--validation_frequency', type=int, default=5)
+parser.add_argument('--print_frequency', type=int, default=50)
 
-parser.add_argument('--n_worker', type=int, default=16)
+parser.add_argument('--n_worker', type=int, default=4)
 parser.add_argument('--resize_scale', type=float, default=0.08)
 parser.add_argument('--distort_color', type=str, default=None, choices=['normal', 'strong', None])
 
