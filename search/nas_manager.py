@@ -4,6 +4,7 @@
 
 from run_manager import *
 
+from memory_profiler import profile
 
 class ArchSearchConfig:
 
@@ -241,6 +242,7 @@ class ArchSearchRunManager:
         self.net.unused_modules_back()
         return valid_res, flops, latency
 
+    @profile(precision=4,stream=open('warm_up.log','w+'))
     def warm_up(self, warmup_epochs=25):
         lr_max = 0.05
         data_loader = self.run_manager.run_config.train_loader
@@ -266,6 +268,7 @@ class ArchSearchRunManager:
                 for param_group in self.run_manager.optimizer.param_groups:
                     param_group['lr'] = warmup_lr
                 images, labels = images.to(self.run_manager.device), labels.to(self.run_manager.device)
+
                 # compute output
                 self.net.reset_binary_gates()  # random sample binary gates
                 self.net.unused_modules_off()  # remove unused module for speedup
@@ -288,6 +291,7 @@ class ArchSearchRunManager:
                 self.run_manager.optimizer.step()  # update weight parameters
                 # unused modules back
                 self.net.unused_modules_back()
+
                 # measure elapsed time
                 batch_time.update(time.time() - end)
                 end = time.time()

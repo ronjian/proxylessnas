@@ -5,6 +5,7 @@ from PIL import Image
 import os
 import os.path
 
+from memory_profiler import profile
 
 def has_file_allowed_extension(filename, extensions):
     """Checks if a file is an allowed extension.
@@ -123,6 +124,7 @@ class DatasetFolder(VisionDataset):
         class_to_idx = {classes[i]: i for i in range(len(classes))}
         return classes, class_to_idx
 
+    
     def __getitem__(self, index):
         """
         Args:

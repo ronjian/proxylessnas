@@ -15,7 +15,6 @@ class ImagenetDataProvider(DataProvider):
         self._save_path = save_path
         train_transforms = self.build_train_transform(distort_color, resize_scale)
         train_dataset = datasets.ImageFolder(self.train_path, train_transforms, slice_idx=slice_idx)
-
         if valid_size is not None:
             if isinstance(valid_size, float):
                 valid_size = int(valid_size * len(train_dataset))
@@ -34,14 +33,15 @@ class ImagenetDataProvider(DataProvider):
                 self.normalize,
             ]), slice_idx=slice_idx)
             self.train = torch.utils.data.DataLoader(
-                train_dataset, batch_size=train_batch_size, sampler=train_sampler,
+                train_dataset, batch_size=train_batch_size, shuffle=False,sampler=train_sampler,
                 num_workers=n_worker, pin_memory=False,
             )
             self.valid = torch.utils.data.DataLoader(
-                valid_dataset, batch_size=test_batch_size, sampler=valid_sampler,
+                valid_dataset, batch_size=test_batch_size, shuffle=False,sampler=valid_sampler,
                 num_workers=n_worker, pin_memory=False,
             )
         else:
+            print('!!!!!!!!! valid size is None !!!!!!!!!!')
             self.train = torch.utils.data.DataLoader(
                 train_dataset, batch_size=train_batch_size, shuffle=True,
                 num_workers=n_worker, pin_memory=False,
